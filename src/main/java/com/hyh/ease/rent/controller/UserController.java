@@ -14,7 +14,7 @@ public class UserController {
     @RequestMapping(value = "/detail/{id}" , method = RequestMethod.GET)
     public String getUserName(@PathVariable String id)
     {
-        return id;
+        return "hello " + id;
     }
 
 }
