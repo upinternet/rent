@@ -1,4 +1,8 @@
 /target/
+.git/
+.ignore
+.idea
+
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
