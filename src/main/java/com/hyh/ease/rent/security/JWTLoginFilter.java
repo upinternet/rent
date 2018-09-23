@@ -29,20 +29,24 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter{
 
     @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException, ServletException {
+        super.successfulAuthentication(req,res,chain,auth);
         TokenAuthenticationHandler tokenAuthenticationHandler = new TokenAuthenticationHandler();
+
         Object obj = auth.getPrincipal();
-        if(obj != null) {
-            UserDetails userDetails = (UserDetails)obj;
+        if (obj != null) {
+            UserDetails userDetails = (UserDetails) obj;
             String token = tokenAuthenticationHandler.generateToken(JSON.toJSONString(userDetails));
             res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + token);
         }
 
-        if(successHandler != null) {
+        if (successHandler != null) {
             successHandler.onAuthenticationSuccess(req, res, auth);
         }
+
     }
 
     public void setSuccessHandler(AuthenticationSuccessHandler successHandler) {
         this.successHandler = successHandler;
     }
+
 }

@@ -1,6 +1,9 @@
 package com.hyh.ease.rent.controller;
 
 
+import com.hyh.ease.rent.entity.User;
+import com.hyh.ease.rent.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,10 +12,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    UserService userService;
+
 
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
-    public String getUserName(@PathVariable String id) {
-        return "hello " + id;
+    public String getUserName(@PathVariable Integer id) {
+        User user = userService.selectByPrimaryKey(id);
+        return "hello " + user.getUserAccount();
     }
 
 

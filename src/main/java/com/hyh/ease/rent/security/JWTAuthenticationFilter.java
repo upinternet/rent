@@ -22,6 +22,7 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
         HttpServletRequest req = (HttpServletRequest)request;
 
         String token = req.getHeader(HEADER_STRING);
+//        String token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJjcmVhdGVkIjoxNTM2MjM1NTU2Mzk4LCJzdWJqZWN0Ijoie1wiYWNjb3VudE5vbkV4cGlyZWRcIjp0cnVlLFwiYWNjb3VudE5vbkxvY2tlZFwiOnRydWUsXCJhdXRob3JpdGllc1wiOlt7XCJhdXRob3JpdHlcIjpcIlJPTEVfQURNSU5cIn1dLFwiY3JlZGVudGlhbHNOb25FeHBpcmVkXCI6dHJ1ZSxcImVuYWJsZWRcIjp0cnVlLFwiaWRcIjowLFwicGFzc3dvcmRcIjpcIiQyYSQxMCRvVS50LlBGekVmYWFBRjVIcXZzbFMubHFPTXJlT0dhQXVJLk5LeFZ2YXJiOTEyOElJMHg0LlwiLFwicm9sZXNcIjpbe1wiaWRcIjowLFwibmFtZVwiOlwiUk9MRV9BRE1JTlwifV0sXCJ1c2VybmFtZVwiOlwiaGV5YW5odWlcIn0iLCJleHAiOjE1MzcwOTk1NTZ9.vp8tlobUEbRq4qLSYcF4lKyyihe9ag8BWicjr8kD9EudFGv54Wjb1p8-jOHL0enqKGGXkUe5QrxQRbFM2XvAfw";
         if(StringUtils.isNotBlank(token) && token.startsWith(TOKEN_PREFIX)) {
             TokenAuthenticationHandler tokenAuthenticationHandler = new TokenAuthenticationHandler();
             String subject = tokenAuthenticationHandler.getSubjectFromToken(token.replace(TOKEN_PREFIX, ""));

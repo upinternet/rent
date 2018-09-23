@@ -2,6 +2,7 @@ package com.hyh.ease.rent.security.config;
 
 import com.hyh.ease.rent.security.CustomUserService;
 import com.hyh.ease.rent.security.JWTAuthenticationFilter;
+import com.hyh.ease.rent.security.JWTLoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -44,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new JWTAuthenticationFilter();
     }
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserService());
@@ -55,13 +59,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+/*
+    //注入登录校验类
+    @Bean
+    public JWTLoginFilter loginFilter() throws Exception {
+        JWTLoginFilter loginFilter = new JWTLoginFilter(authenticationManager());
+        return loginFilter;
+    }
+*/
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 // 由于使用的是JWT，我们这里不需要csrf
-//                .csrf().disable()
+                .csrf().disable()
                 // 基于token，所以不需要session
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 允许对于网站静态资源的无授权访问
@@ -78,13 +91,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasIpAddress("127.0.0.1")
                 .antMatchers("/admin/**").access("hasAuthority('ROLE_ADMIN')")
                 .anyRequest().authenticated().and().formLogin().loginPage("/login")
-                .failureUrl("/login?error").permitAll().and().logout().permitAll();
+                .failureUrl("/login?error").permitAll().and().logout().permitAll()
+                ;
+              /*  .and().addFilterBefore(loginFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);*/
+
         // 除上面外的所有请求全部需要鉴权认证
 //				.anyRequest().authenticated();
         // 添加JWT filter
-//        httpSecurity
-//                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(new JWTLoginFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(new JWTAuthenticationFilter(), JWTLoginFilter.class);
         // 禁用缓存
-//        httpSecurity.headers().cacheControl();
+        httpSecurity.headers().cacheControl();
     }
 }
