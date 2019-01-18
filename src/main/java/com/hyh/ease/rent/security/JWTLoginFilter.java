@@ -36,7 +36,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter{
         if (obj != null) {
             UserDetails userDetails = (UserDetails) obj;
             String token = tokenAuthenticationHandler.generateToken(JSON.toJSONString(userDetails));
-            res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + token);
+            res.setHeader(HEADER_STRING, TOKEN_PREFIX + " " + token);
         }
 
         if (successHandler != null) {

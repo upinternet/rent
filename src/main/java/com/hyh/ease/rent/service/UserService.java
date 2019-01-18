@@ -23,11 +23,11 @@ public class UserService {
     }
 
 
-    @Cacheable("user")
+    //@Cacheable("user")
     public User selectByPrimaryKey(Integer id)
     {
         logger.info("select user by id : {}" , id);
-        return userDao.selectByPrimaryKey(id);
+        return userDao.selectByPrimaryKey("user" , String.valueOf(id) , "hello");
     }
 
     public int updateByPrimaryKey(User record)

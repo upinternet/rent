@@ -18,8 +18,8 @@ public class UserController {
 
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
     public String getUserName(@PathVariable Integer id) {
-        User user = userService.selectByPrimaryKey(id);
-        return "hello " + user.getUserAccount();
+            User user = userService.selectByPrimaryKey(id);
+        return "hello world:" + user.getName();
     }
 
 

@@ -3,8 +3,6 @@ package com.hyh.ease.rent.entity;
 public class User {
     private Integer id;
 
-    private String userAccount;
-
     private String password;
 
     private String name;
@@ -25,13 +23,6 @@ public class User {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(String userAccount) {
-        this.userAccount = userAccount;
-    }
 
     public String getName() {
         return name;
@@ -39,5 +30,10 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return id.toString();
     }
 }
