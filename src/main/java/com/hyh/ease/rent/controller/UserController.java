@@ -2,6 +2,7 @@ package com.hyh.ease.rent.controller;
 
 
 import com.hyh.ease.rent.entity.User;
+import com.hyh.ease.rent.exception.impl.UserNotFoundException;
 import com.hyh.ease.rent.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,8 +18,13 @@ public class UserController {
 
 
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
-    public String getUserName(@PathVariable Integer id) {
-            User user = userService.selectByPrimaryKey(id);
+    public String getUserName(@PathVariable Integer id) throws Exception {
+        User user = userService.selectByPrimaryKey(id);
+        if(user == null)
+        {
+            throw new UserNotFoundException(100L,"user not found ." , "handle it" , null);
+            //throw new Exception("user not found");
+        }
         return "hello world:" + user.getName();
     }
 
