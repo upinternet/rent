@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title sec:authentication="name"></title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+    <style type="text/css">
+        body {
+            padding-top: 50px;
+        }
+
+        .starter-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <!-- 图片位置动态显示你要显示的图片     这里是写死的-->
+    <img src="/file/shows?fileName=2.JPG" style="width: 200px"/>
+</div>
+</body>
+</html>

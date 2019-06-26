@@ -1,24 +1,28 @@
-server:
-  port: 80
-
-
 #公共配置与profiles选择无关 mapperLocations指的路径是src/main/resources
 mybatis:
   typeAliasesPackage: com.hyh.ease.rent.entity
   mapperLocations: classpath:mapper/*.xml
 
+jasypt:
+  encryptor:
+    password: rent
+
 
 #开发配置
 spring:
   #profiles: dev
-
   datasource:
-    url: jdbc:mysql://10.145.240.45:3306/ctyun
-    username: ctyun
-    password: asdqe21eca_dasddsa
+    url: jdbc:mysql://47.107.158.42:3306/rent?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: ENC(wSPP+MZuMK0WmrMfeEI6HHNNW5PTykkx)
     driver-class-name: com.mysql.jdbc.Driver
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
 
 management:
   endpoint:
@@ -28,3 +32,7 @@ management:
     web:
       exposure:
         include: health,info,prometheus
+
+web:
+  upload-path: /opt/rent/file/
+

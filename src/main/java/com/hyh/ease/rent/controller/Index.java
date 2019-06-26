@@ -22,6 +22,7 @@ public class Index {
         return "index";
     }
 
+/*
     @RequestMapping("/image")
     public HttpServletResponse index(HttpServletResponse response , HttpServletRequest request) {
         BufferedImage image ;
@@ -42,5 +43,6 @@ public class Index {
 
         return response;
     }
+*/
 
 }

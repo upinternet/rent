@@ -16,7 +16,7 @@ public class CustomUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         SysUser user = new SysUser();
         user.setId(0l);
-        user.setUsername("heyanhui");
+        user.setUsername("s");
         user.setPassword(new BCryptPasswordEncoder().encode("123456"));
         SysRole role = new SysRole();
         role.setId(0l);

@@ -1,7 +1,14 @@
 package com.hyh.ease.rent.security;
 
+import com.hyh.ease.rent.security.domain.AccessKey;
+import com.hyh.ease.rent.security.util.Signature;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -11,10 +18,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+@Component
 public class JWTAuthenticationFilter extends GenericFilterBean {
 
     static final String HEADER_STRING = "Authorization";
     static final String TOKEN_PREFIX = "Bearer";
+
+    private CustomUserService customUserService = new CustomUserService();
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
@@ -30,7 +40,38 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
                 SecurityContextHolder.getContext().setAuthentication(new JWTAuthenticationToken(subject));
             }
         }
+
+        auth1(req);
+
         filterChain.doFilter(request,response);
+    }
+
+    private void auth1(HttpServletRequest req)
+    {
+        String keyId = req.getHeader("keyId");
+        if(StringUtils.isEmpty(keyId))
+        {
+            return;
+        }
+        Signature.verify(new AccessKey(keyId,AccessKey.pare.get(keyId)),req);
+
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(null,null);
+        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
+        //设置为已登录
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+       /* UserDetails userDetails = customUserService.loadUserByUsername("s");
+        if(userDetails != null)
+        {
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+
+            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
+            //设置为已登录
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        }*/
+
     }
 
 }
