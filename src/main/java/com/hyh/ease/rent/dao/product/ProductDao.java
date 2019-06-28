@@ -9,6 +9,7 @@ import java.util.List;
 @Component
 public interface ProductDao {
     int insert(Product product);
+    void removeById(String id);
 
     Product selectByPrimaryKey(@Param("id") String id);
     List<Product> query();

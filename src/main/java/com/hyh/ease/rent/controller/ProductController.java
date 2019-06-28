@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -82,10 +83,24 @@ public class ProductController {
 
 
     @ResponseBody
-    @RequestMapping("/list")
-    public List<Product> list(){
-
+    @RequestMapping("/query")
+    public List<Product> query(){
         return productDao.query();
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/remove/{id}")
+    public String remove(@PathVariable("id") String productId) {
+        productDao.removeById(productId);
+        return "删除成功";
+    }
+
+    @RequestMapping("/list")
+    public String list(Model model) {
+        List<Product> products = productDao.query();
+        model.addAttribute("products", products);
+        return "product/list";
     }
 
 /*    @ResponseBody
@@ -115,7 +130,7 @@ public class ProductController {
     }*/
 
     @ResponseBody
-    @RequestMapping("/image/{id}")
+    @RequestMapping("/{id}/image")
     public void index(HttpServletResponse response , HttpServletRequest request , @PathVariable("id") String productId) {
         ServletOutputStream out = null;
         FileInputStream is = null;

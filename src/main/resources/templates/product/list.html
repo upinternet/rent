@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>产品列表</title>
+    <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}"/>
+    <style type="text/css">
+        body {
+            text-align: center;
+            padding: 100px 200px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <table class="table table-striped table-def">
+        <tr>
+            <th>产品ID</th>
+            <th>名称</th>
+            <th>价格</th>
+            <th>图片</th>
+            <th>操作</th>
+        </tr>
+        <tr  th:each="product,p : ${products}">
+            <td th:text="${product.id}">Onions</td>
+            <td th:text="${product.name}">test@test.com.cn</td>
+            <td th:text="${product.price}">yes</td>
+            <td><img th:src="@{${product.id + '/image'}}"/></td>
+            <th><a th:href="@{${'remove/' + product.id}}" target="_blank">删除</a></th>
+        </tr>
+    </table>
+
+</body>
+</html>

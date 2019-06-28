@@ -15,8 +15,14 @@
         from r_product
         where id = #{id}
     </select>
+    <select id="removeById" >
+        delete
+        from r_product
+        where id = #{id}
+    </select>
     <select id="query" resultMap="BaseResultMap" >
         select * from r_product
+        order by display_order
     </select>
     <insert id="insert" parameterType="com.hyh.ease.rent.entity.Product" >
         insert into r_product (id,name,price,path,display_order,description)
