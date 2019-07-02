@@ -7,9 +7,11 @@
   </appender>
  
  <appender name="log" class="ch.qos.logback.core.rolling.RollingFileAppender"> 
-	<file>/opt/logs/${server.app}_${server.ip}_${server.port}.log</file>
-    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   
-      <fileNamePattern>/opt/logs/${server.app}_${server.ip}_${server.port}.log.%d{yyyy-MM-dd}.hist</fileNamePattern>
+	<file>/opt/logs/rent.log</file>
+     <append>true</append>
+     <prudent>false</prudent>
+     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>/opt/logs/rent.log.%d{yyyy-MM-dd}.hist</fileNamePattern>
       <maxHistory>2</maxHistory>    
     </rollingPolicy> 
 	<filter class="ch.qos.logback.classic.filter.ThresholdFilter">   
@@ -20,7 +22,7 @@
     </encoder>
  </appender>
 
-  <root level="INFO">             
+  <root level="DEBUG">
     <appender-ref ref="log" /> 
 	<appender-ref ref="console" />
   </root>     

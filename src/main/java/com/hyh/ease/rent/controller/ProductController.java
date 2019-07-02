@@ -4,6 +4,8 @@ import com.hyh.ease.rent.dao.product.ProductDao;
 import com.hyh.ease.rent.entity.Product;
 import com.hyh.ease.rent.utils.FileUtils;
 import com.hyh.ease.rent.utils.UUIDUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
@@ -26,6 +28,8 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
 
+
+    private static Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     private final ResourceLoader resourceLoader;
 
@@ -154,7 +158,7 @@ public class ProductController {
             out.close();
             is.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("IOException" , e);
         }
 
     }
