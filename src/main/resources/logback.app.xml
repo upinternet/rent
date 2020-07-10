@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration scan="true" scanPeriod="60 seconds">   
+   <appender name="console" class="ch.qos.logback.core.ConsoleAppender">   
+    <encoder>   
+      <pattern>[%d{MMddHHmmss.SSS}] %-5level-%msg%n</pattern>   
+    </encoder>   
+  </appender>
+ 
+ <appender name="log" class="ch.qos.logback.core.rolling.RollingFileAppender"> 
+	<file>${ketty.logs.home}/logs/${server.app}_${server.ip}_${server.port}.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   
+      <fileNamePattern>${ketty.logs.home}/logs/${server.app}_${server.ip}_${server.port}.log.%d{yyyy-MM-dd}.hist</fileNamePattern>  
+      <maxHistory>2</maxHistory>    
+    </rollingPolicy> 
+	<filter class="ch.qos.logback.classic.filter.ThresholdFilter">   
+      <level>INFO</level>   
+    </filter> 
+    <encoder>
+		<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern> 
+    </encoder>
+ </appender>
+  
+  <appender name="tlog" class="ch.qos.logback.core.rolling.RollingFileAppender"> 
+	<file>${ketty.logs.home}/tlog/tlog_${server.app}_${server.ip}_${server.port}.log</file>
+  	<filter class="ch.qos.logback.classic.filter.ThresholdFilter">   
+      <level>INFO</level>   
+    </filter> 
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   
+      <fileNamePattern>${ketty.logs.home}/tlog/${server.app}_${server.ip}_${server.port}.log.%d{yyyy-MM-dd}.hist</fileNamePattern>  
+      <maxHistory>2</maxHistory>    
+    </rollingPolicy>   
+    <encoder>   
+      <pattern>%msg%n</pattern>   
+    </encoder> 
+	<append>true</append>
+  </appender> 
+
+   <appender name="bizlog" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+	<file>${ketty.logs.home}/bizlog/${server.app}_${server.ip}_${server.port}.log</file>
+   	<filter class="ch.qos.logback.classic.filter.ThresholdFilter">   
+      <level>INFO</level>   
+    </filter> 
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">   
+       <fileNamePattern>${ketty.logs.home}/bizlog/${server.app}_${server.ip}_${server.port}.log.%d{yyyy-MM-dd}.hist</fileNamePattern>    
+      <maxHistory>2</maxHistory>    
+    </rollingPolicy>   
+    <encoder>   
+      <pattern>%msg%n</pattern>   
+    </encoder>
+	<append>true</append>
+  </appender> 
+  
+  <logger name="TLog0" level="INFO" additivity="false">
+	<appender-ref ref="tlog" /> 
+  </logger>
+  <logger name="Bizlog0" level="INFO" additivity="false">
+	<appender-ref ref="bizlog" /> 
+  </logger>
+
+  <root level="INFO">             
+    <appender-ref ref="log" /> 
+	<appender-ref ref="console" />
+  </root>     
+</configuration>
+
