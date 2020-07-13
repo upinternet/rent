@@ -3,7 +3,7 @@ kind: pipeline
 name: 打包测试
 ​
 steps:
-- name: Maven
+- name: Maven编译
   image: maven:3.6.2-jdk-8
   volumes:
   - name: cache
