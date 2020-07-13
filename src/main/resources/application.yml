@@ -8,8 +8,7 @@ jasypt:
     password: rent
 
     
-    
-
+   
 #开发配置
 spring:
   #profiles: dev
