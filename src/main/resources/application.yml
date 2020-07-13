@@ -33,6 +33,8 @@ management:
       exposure:
         include: health,info,prometheus
 
+        
+        
 web:
   upload-path: /opt/rent/file/
 
