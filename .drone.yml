@@ -7,5 +7,3 @@ steps:
     volumes:
     commands:
       - mvn clean install
-
-​
