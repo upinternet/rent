@@ -1,12 +1,17 @@
-workspace:
-  base: /go
-  path: src/gogs.kikakika.com/lihongfeng/first
 
-  
-  
-pipeline:
-  build:
-    image: golang:1.10.2
-    commands:
-      - go test
-      - go build 
+kind: pipeline
+name: 打包测试
+​
+steps:
+- name: Maven
+  image: maven:3.6.2-jdk-8
+  volumes:
+  - name: cache
+    path: /root/.m2
+  commands:
+    - mvn clean install
+  when:
+    branch: master
+    event: [ push ]
+
+​
