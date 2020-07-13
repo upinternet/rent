@@ -2,6 +2,8 @@ workspace:
   base: /go
   path: src/gogs.kikakika.com/lihongfeng/first
 
+  
+  
 pipeline:
   build:
     image: golang:1.10.2
