@@ -7,8 +7,6 @@ jasypt:
   encryptor:
     password: rent
 
-    
-    
 
 #开发配置
 spring:
