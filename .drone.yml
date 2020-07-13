@@ -4,14 +4,19 @@ name: 打包测试
 ​
 steps:
 - name: Maven编译
-  image: maven:3.6.2-jdk-8
+  image: maven
   volumes:
   - name: cache
     path: /root/.m2
   commands:
     - mvn clean install
-  when:
-    branch: master
-    event: [ push ]
-
+	
+volumes:
+- name: cache
+  host:
+    path: /tmp/cache/.m2
+​
+trigger:
+  branch:
+  - master
 ​
