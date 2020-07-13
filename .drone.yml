@@ -1,22 +1,11 @@
-
 kind: pipeline
-name: 打包测试
-​
+type: docker
+name: default
 steps:
-- name: Maven编译
-  image: maven
-  volumes:
-  - name: cache
-    path: /root/.m2
-  commands:
-    - mvn clean install
-	
-volumes:
-- name: cache
-  host:
-    path: /tmp/cache/.m2
-​
-trigger:
-  branch:
-  - master
+  - name: Maven编译
+    image: maven
+    volumes:
+    commands:
+      - mvn clean install
+
 ​
