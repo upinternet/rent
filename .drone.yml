@@ -1,10 +1,37 @@
 kind: pipeline
-type: docker
-name: default
+name: pipeline-example-maven
 
 steps:
-  - name: Maven编译
-    image: maven
-    volumes:
-    commands:
-      - mvn clean install
+- name: Maven编译
+  image: maven:3-jdk-7
+  volumes:
+  - name: cache
+    path: /root/.m2
+  commands:
+  - mvn clean install
+
+- name: 构建镜像
+  image: plugins/docker
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+  settings:
+    username:
+      from_secret: docker_user
+    password:
+      from_secret: docker_pass
+    repo: hub.docker.com/repository/docker/heyanhui
+    registry: hub.docker.com
+    tags: ${DRONE_BUILD_NUMBER}
+
+volumes:
+- name: cache
+  host:
+    path: /tmp/cache/.m2
+- name: docker
+  host:
+    path: /var/run/docker.sock
+
+trigger:
+  branch:
+  - master
