@@ -4,12 +4,12 @@ name: pipeline-example-maven
 
 steps:
   - name: Maven
-    image: maven:3-jdk-7
+    image: maven
     volumes:
       - name: cache
         path: /root/.m2
     commands:
-      - mvn clean install  -DskipTests -e -X
+      - mvn clean install -DskipTests
 
   - name: 构建镜像
     image: plugins/docker
