@@ -24,7 +24,10 @@ steps:
         from_secret: docker_pass
       repo: hub.docker.com/repository/docker/heyanhui
       registry: hub.docker.com
-      tags: latest
+      tags:
+        - latest
+        - '${DRONE_BRANCH}'
+        - '${DRONE_BRANCH}-${DRONE_BUILD_NUMBER}'
 
 volumes:
   - name: cache
