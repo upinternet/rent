@@ -27,12 +27,12 @@ steps:
     tags: latest
 
 volumes:
-- name: cache
-  host:
-    path: /tmp/cache/.m2
-- name: docker
-  host:
-    path: /var/run/docker.sock
+  - name: cache
+    host:
+      path: /tmp/cache/.m2
+  - name: docker
+    host:
+      path: /var/run/docker.sock
 
 trigger:
   branch:
