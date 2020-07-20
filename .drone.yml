@@ -22,7 +22,7 @@ steps:
       from_secret: docker_pass
     repo: hub.docker.com/repository/docker/heyanhui
     registry: hub.docker.com
-    tags: ${DRONE_BUILD_NUMBER}
+    tags: latest
 
 volumes:
 - name: cache
