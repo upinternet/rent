@@ -1,6 +1,7 @@
 kind: pipeline
 name: pipeline-example-maven
 
+
 steps:
   - name: Maven
     image: maven:3-jdk-7
