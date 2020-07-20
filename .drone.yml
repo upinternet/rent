@@ -20,7 +20,7 @@ steps:
         from_secret: docker_user
       password:
         from_secret: docker_pass
-      repo: hub.docker.com/repository/docker/heyanhui/rent
+      repo: heyanhui/rent
       registry: hub.docker.com
       tags:
         - latest
