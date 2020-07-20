@@ -10,7 +10,7 @@ steps:
   - name: cache
     path: /root/.m2
   commands:
-  - mvn clean install
+  - mvn clean install -e -X
 
 - name: 构建镜像
   image: plugins/docker
